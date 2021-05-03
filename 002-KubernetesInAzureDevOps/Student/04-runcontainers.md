@@ -18,3 +18,12 @@ Simply open `variables.user.yml` and set `deployAfterBuild` to true for both pro
 Your pipelines run successfully and you can see the containers running in your AKS cluster. If you look at the pods with `kubectl describe`, you should see annotations indicating what version of the container is running.
 
 ## Hints
+
+If you have existing containers deployed to your cluster, you may be low on available resources, which can cause the deployment to time out!
+You can clean up your cluster's existing deployments and services for the `content-web` and `content-api` applications by running the following commands:
+`kubectl delete deploy --selector=app=content-api -n default`
+`kubectl delete deploy --selector=app=content-web -n default`
+`kubectl delete svc --selector=app=content-api -n default`
+`kubectl delete svc --selector=app=content-web -n default`
+
+If you deployed your resources to a different namespace, just replace `default` with the namespace name.
