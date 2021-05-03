@@ -11,7 +11,10 @@ Review the Kubernetes manifests in the `deploy` folders of the two applications.
 
 These manifests being in source control means that there is a single source of truth describing how your containers run -- they are versioned, repeatable, and can easily be rolled back or rolled forward!
 
-Simply open `variables.user.yml` and set `deployAfterBuild` to true for both projects' pipelines, then commit the change. You should see a build kick off immediately.
+- First, you'll need to make a tiny change to your Kubernetes manifests (located in the `content-web/deploy/content-web-deploy.yml` and `content-api/deploy/content-api-deploy.yml` files.)
+  - You'll need to update the ACR path for your image to point to your ACR. i.e. `image: myacr.azurecr.io/content-web`
+  
+- Then, to turn deployment on, simply open `variables.user.yml` and set `deployAfterBuild` to true for both projects' pipelines, then commit the change. You should see a build kick off immediately.
 
 ## Success Criteria
 
