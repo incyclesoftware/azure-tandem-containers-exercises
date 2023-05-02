@@ -6,6 +6,8 @@
 
 - Remind teams that kubectl can be installed through the CLI, but don’t give away the answer:
 	- `az aks install-cli`
+	- Note that WSL users will have to alias the Windows location of Kubectl afterwards:
+		- `alias kubectl=/mnt/c/users/<your username>/.azure-kubectl/kubectl.exe`
 - All teams should have an AKS cluster stood up relatively quickly but they will likely need some hints regarding the correct parameters for the `az aks create` command.
 	- The default Kubernetes version used by the az aks create command should be fine.  
 	- The CLI should be used to create the cluster to give the most realistic experience.  
@@ -17,7 +19,7 @@
 		- [CLI](https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough)
 - It is usually a good idea to explain to the students what kind of options they have when creating a cluster. Doing a walkthrough demo of provisioning a cluster with the Portal is good showcasing tool, but end by telling them they need to figure out how to achieve the same thing with the CLI.
 - Have the teams show you the running cluster with:
-	- `kubectl get nodes`
+	- `kubectl get nodes --show-labels`
 		- It should 3 nodes with each node in a different availability zone.  
 	- Each node should be a VM with at least 2 vCPU and 4 GB of memory.  The reason for this is that we need to have enough CPU and RAM for the system pods to run (e.g. CoreDNS and tunnelfront).  See this link for more details: 
     	- <https://docs.microsoft.com/en-us/azure/aks/use-system-pools>

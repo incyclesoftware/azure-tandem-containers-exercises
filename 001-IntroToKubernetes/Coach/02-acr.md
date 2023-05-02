@@ -8,6 +8,9 @@
     - `az acr create -n <name of registry> -g <resource group> --sku Standard`
 - To login to the ACR, use: 
     - `az acr login --name <name of ACR>`
+    - Note: If using `podman` or `nerdctl` instead of `docker`, use the following:
+        - ACR_ACCESS_TOKEN=$(az acr login -n <name of ACR> --expose-token -o tsv --query accessToken)
+        - podman login <name of ACR>.azurecr.io -u 00000000-0000-0000-0000-000000000000 --password-stdin <<< $ACR_ACCESS_TOKEN
 - To tag images, use: 
     - `docker tag <name of image> <name of ACR>/<namespace>/<name of image>`
     - For example: 

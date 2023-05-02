@@ -39,6 +39,7 @@ In this challenge you will be installing Helm locally and in your cluster and th
 		- **DO NOT** blindly copy the entire yaml file into the chart. The whole point of helm is that it allows us to parameterize our yaml files and make them more versatile.
 	- Create a Helm package on the local machine for each version of the web app.
 		- **Hint:** If you parameterize things properly, you'll be able to write ONE helm chart that takes the version as an input.
+		- **Hint:** You can use `helm create` to bootstrap a new template
 	- Remove the previously deployed app by deleting the namespace that was created via the yaml file
 	- Deploy the helm chart with v1 of the image you just created. 
 	- Verify that the app has been deployed successfully

@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: web
+  name: content-web
 spec:
   selector:
     matchLabels:
-      app: web  
+      app: content-web
   template:
     metadata:
       labels:
-        app: web
+        app: content-web
     spec:
       containers:
       - image: YOUR_ACR_NAME.azurecr.io/content-web
-        name: web
+        name: content-web
         env:
         - name: CONTENT_API_URL
-          value: http://api:3001
+          value: http://content-api:3001
         tty: true
         ports:
         - containerPort: 3000
@@ -24,28 +24,30 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: web
+  name: content-web
 spec:
   ports:
   - port: 80
     protocol: TCP
     targetPort: 3000
   selector:
-    app: web
+    app: content-web
   type: ClusterIP
 ---
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: web
+  name: content-web
   annotations:
-    kubernetes.io/ingress.class: nginx
+    kubernetes.io/ingress.class: azure/application-gateway
 spec:
   rules:
-  - host: YOUR_AKS_CLUSTER_NAME.YOUR_AKS_DNS_ID.YOUR_AKS_REGION.aksapp.io
-    http:
-      paths:
-      - backend:
-          serviceName: web
-          servicePort: 80
-        path: /
+    - http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: content-web
+              port:
+                number: 80
